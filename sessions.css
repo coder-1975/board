@@ -23,7 +23,6 @@
 
   /* syntax */
   --tok-keyword: #cba6f7;
-  --tok-builtin: #89dceb;
   --tok-string: #a6e3a1;
   --tok-template: #a6e3a1;
   --tok-number: #fab387;
@@ -38,18 +37,17 @@
   --tok-boolean: #fab387;
   --tok-article: #6a8051;
   --tok-modelverb: #802a3e;
-  --tok-propositions: #2f6662;
+  --tok-prepositions: #2f6662;
   --tok-verbs: #b13157;
   --tok-adverbs: #cf4a72;
-  --tok-verbing: #8b445a;
+  --tok-present_participle: #8b445a;
   --tok-nouns: #bec040;
-  --tok-demonstrations: #65b65d;
+  --tok-demonstrative_pronouns: #65b65d;
   --tok-subjectpronouns: #f75205;
   --tok-objectpronouns: #1f5de4;
   --tok-adjectives: #a8ad5d;
-  --tok-andor: #e6a837;
-
-  /*   ,   */
+  --tok-fanboys: #e6a837;
+  ---tok-qutta:#cee478;
 }
 
 body {
@@ -217,12 +215,7 @@ main {
   right: 0;
   bottom: 0;
   padding: 12px 14px;
-
-  font:
-    26px/2 "Cascadia Code",
-    "Fira Code",
-    "Consolas",
-    monospace;
+  font: clamp(14px, 2vw, 26px)/2 "Cascadia Code", "Fira Code", "Consolas", monospace;
   white-space: pre-wrap;
   word-break: break-word;
   overflow: auto;
@@ -236,13 +229,8 @@ main {
   left: 42px;
   right: 0;
   bottom: 0;
-  padding: 14px 24px;
   padding: 12px 14px;
-  font:
-    26px/2 "Cascadia Code",
-    "Fira Code",
-    "Consolas",
-    monospace;
+  font: clamp(14px, 2vw, 26px)/2 "Cascadia Code", "Fira Code", "Consolas", monospace;
   background: transparent;
   color: transparent;
   caret-color: var(--caret);
@@ -254,11 +242,6 @@ main {
   overflow: auto;
   tab-size: 2;
   z-index: 1;
-  display: flex;
-  justify-content: space-around;
-  justify-items: normal;
-  align-items: center;
-  align-content: center;
 }
 
 /* ── Output pane ─────────────────────────────────────────── */
@@ -294,9 +277,7 @@ main {
 .out-error {
   color: #f38ba8;
 }
-.out-info {
-  color: var(--tok-builtin);
-}
+
 .out-return {
   color: var(--tok-string);
   font-style: italic;
@@ -307,9 +288,7 @@ main {
   color: var(--tok-keyword);
   font-weight: bold;
 }
-.tok-builtin {
-  color: var(--tok-builtin);
-}
+
 .tok-string {
   color: var(--tok-string);
 }
@@ -360,15 +339,15 @@ main {
   color: var(--tok-boolean);
   font-weight: bold;
 }
-.tok-propositions {
-  color: var(--tok-propositions);
+.tok-prepositions {
+  color: var(--tok-prepositions);
 }
 
 .tok-verbs {
   color: var(--tok-verbs);
 }
-.tok-verbing {
-  color: var(--tok-verbing);
+.tok-present_participle {
+  color: var(--tok-present_participle);
 }
 .tok-questionwords {
   color: var(--tok-questionwords);
@@ -376,8 +355,8 @@ main {
 .tok-nouns {
   color: var(--tok-nouns);
 }
-.tok-demonstrations {
-  color: var(--tok-demonstrations);
+.tok-demonstrative_pronouns {
+  color: var(--tok-demonstrative_pronouns);
 }
 .tok-subjectpronouns {
   color: var(--tok-subjectpronouns);
@@ -394,8 +373,12 @@ main {
   color: var(--tok-adjectives);
 }
 
-.tok-andor{
-  color: var(--tok-andor);
+.tok-fanboys{
+  color: var(--tok-fanboys);
+}
+
+.tok-qutta{
+  color: var(---tok-qutta);
 }
 
 /*  ,*/
@@ -479,26 +462,39 @@ main {
   }
 }
 
-/* ── Responsive / Mobile ─────────────────────────────────── */
+/* ── Responsive ──────────────────────────────────────────── */
+
+/* ── Tablet (≤ 1024px) ───────────────────────────────────── */
+@media (max-width: 1024px) {
+  body {
+    padding: 0.75rem clamp(0.5rem, 3vw, 2rem);
+  }
+
+  #resetBtn {
+    width: auto;
+  }
+}
+
+/* ── Mobile (≤ 768px) ────────────────────────────────────── */
 @media (max-width: 768px) {
   body {
-    padding: 0.5rem 0.75rem;
+    padding: 0.4rem 0.5rem;
     height: 100dvh;
   }
 
   header {
-    padding: 8px 12px;
-    gap: 8px;
+    padding: 8px 10px;
+    gap: 6px;
   }
 
   header h1 {
     font-size: 0.8rem;
+    white-space: normal;
   }
 
   .header-actions {
-    gap: 6px;
-    width: 100%;
-    justify-content: flex-start;
+    gap: 5px;
+    flex-wrap: wrap;
   }
 
   button {
@@ -508,54 +504,56 @@ main {
 
   #resetBtn {
     width: auto;
-    font-size: 0.85rem;
+    font-size: 0.82rem;
   }
 
   #themeSelect {
-    font: 14px/1.4 "Cascadia Code", "Fira Code", "Consolas", monospace;
+    font: 13px/1.4 "Cascadia Code", "Fira Code", "Consolas", monospace;
     padding: 4px 6px;
   }
 
   .pane-label {
-    padding: 5px 12px;
-    font-size: 0.65rem;
+    padding: 4px 10px;
+    font-size: 0.62rem;
   }
 
+  /* editor font scales down on mobile */
   #lineNumbers {
-    font: 18px/1.9 "Cascadia Code", "Fira Code", "Consolas", monospace;
-    min-width: 32px;
-    padding: 10px 6px;
+    font: 16px/1.9 "Cascadia Code", "Fira Code", "Consolas", monospace;
+    min-width: 30px;
+    padding: 10px 5px;
   }
 
   #highlight {
-    left: 32px;
-    font: 18px/1.9 "Cascadia Code", "Fira Code", "Consolas", monospace;
+    left: 30px;
+    font: 16px/1.9 "Cascadia Code", "Fira Code", "Consolas", monospace;
     padding: 10px 10px;
   }
 
   #codeInput {
-    left: 32px;
-    font: 18px/1.9 "Cascadia Code", "Fira Code", "Consolas", monospace;
+    left: 30px;
+    font: 16px/1.9 "Cascadia Code", "Fira Code", "Consolas", monospace;
     padding: 10px 10px;
   }
 
-  /* Teacher info card */
+  /* teacher info card */
   #myidcard {
     flex-direction: column;
-    height: auto;
+    height: 100dvh;
     max-height: none;
-    min-height: 100%;
+    top: 0;
+    left: 0;
+    min-width: 100%;
     padding: 1rem 0.5rem;
     overflow-y: auto;
-    left: 0;
-    top: 0;
-    min-width: 100%;
     align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
   }
 
   #myidcard form {
-    min-width: 95%;
-    width: 95%;
+    min-width: 96%;
+    width: 96%;
     height: auto;
     max-height: none;
     padding: 1.2rem 1rem;
@@ -568,35 +566,59 @@ main {
   }
 
   #myidcard button#btn_t {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     width: 90%;
   }
 }
 
+/* ── Small phone (≤ 480px) ───────────────────────────────── */
 @media (max-width: 480px) {
   body {
-    padding: 0.25rem 0.4rem;
+    padding: 0.25rem 0.3rem;
+  }
+
+  header {
+    padding: 6px 8px;
   }
 
   header h1 {
-    font-size: 0.72rem;
+    font-size: 0.7rem;
+  }
+
+  .header-actions {
+    gap: 4px;
+  }
+
+  button {
+    padding: 4px 8px;
+    font-size: 0.7rem;
+  }
+
+  #themeSelect {
+    font: 12px/1.4 "Cascadia Code", "Fira Code", "Consolas", monospace;
+    padding: 3px 5px;
+  }
+
+  .pane-label {
+    font-size: 0.58rem;
+    padding: 4px 8px;
   }
 
   #lineNumbers {
-    font: 15px/1.9 "Cascadia Code", "Fira Code", "Consolas", monospace;
-    min-width: 26px;
+    font: 14px/1.9 "Cascadia Code", "Fira Code", "Consolas", monospace;
+    min-width: 24px;
     padding: 8px 4px;
   }
 
   #highlight {
-    left: 26px;
-    font: 15px/1.9 "Cascadia Code", "Fira Code", "Consolas", monospace;
+    left: 24px;
+    font: 14px/1.9 "Cascadia Code", "Fira Code", "Consolas", monospace;
     padding: 8px 8px;
   }
 
   #codeInput {
-    left: 26px;
-    font: 15px/1.9 "Cascadia Code", "Fira Code", "Consolas", monospace;
+    left: 24px;
+    font: 14px/1.9 "Cascadia Code", "Fira Code", "Consolas", monospace;
     padding: 8px 8px;
   }
 }
