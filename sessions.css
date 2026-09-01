@@ -22,6 +22,7 @@
   --caret: #cdd6f4;
 
   /* syntax */
+  --tok-conjunctions:#5a7f9e,
   --tok-keyword: #cba6f7;
   --tok-string: #a6e3a1;
   --tok-template: #a6e3a1;
@@ -341,10 +342,46 @@ main {
 }
 .tok-prepositions {
   color: var(--tok-prepositions);
+  pointer-events:visible !important;
 }
+/* 
+With my friends, I watched the play.
+
+*/
 
 .tok-verbs {
   color: var(--tok-verbs);
+  pointer-events: all !important;
+  animation: txt-verbs 2s ease-in-out 1;
+  transition: all ease-in-out;
+}
+@keyframes txt-verbs{
+  0%{
+   
+    color:red;
+  }
+  50%{
+   
+    color:green;
+  }
+  100%{
+  
+    color:blue;
+  }
+}
+@keyframes txt-adverbs{
+  0%{
+   
+    color:rgb(179, 255, 0);
+  }
+  50%{
+   
+    color:rgb(0, 98, 128);
+  }
+  100%{
+  
+    color:rgb(170, 38, 131);
+  }
 }
 .tok-present_participle {
   color: var(--tok-present_participle);
@@ -354,6 +391,7 @@ main {
 }
 .tok-nouns {
   color: var(--tok-nouns);
+  pointer-events: visible !important;
 }
 .tok-demonstrative_pronouns {
   color: var(--tok-demonstrative_pronouns);
@@ -368,9 +406,13 @@ main {
 
 .tok-adverbs {
   color: var(--tok-adverbs);
+   pointer-events: all !important;
+  animation: txt-adverbs 2s ease-in-out 1;
+  transition: all ease-in-out;
 }
 .tok-adjectives{
   color: var(--tok-adjectives);
+  pointer-events: visible !important;
 }
 
 .tok-fanboys{
@@ -379,6 +421,11 @@ main {
 
 .tok-qutta{
   color: var(---tok-qutta);
+}
+
+.tok-conjunctions{
+  color: var(--tok-conjunctions);
+  pointer-events: visible !important;
 }
 
 /*  ,*/
