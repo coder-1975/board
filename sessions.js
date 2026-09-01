@@ -1,6 +1,6 @@
 // use dictionary ......
-import dic from "./js/dictionary.js";
-import THEMES from "./js/themes.js";
+import dic from "./dictionary.js";
+import THEMES from "./themes.js";
 // ─────────────────────────────────────────────────────────────
 //  THEMES from themes.js
 // ─────────────────────────────────────────────────────────────
